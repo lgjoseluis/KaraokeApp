@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
+using Prism;
+using Prism.Ioc;
 using UIKit;
 
 namespace KaraokeApp.iOS
@@ -20,12 +18,22 @@ namespace KaraokeApp.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(new iOSInitializer()));
 
-            return base.FinishedLaunching(app, options);
+            return base.FinishedLaunching(uiApplication, launchOptions);
+        }
+    }
+
+#pragma warning disable S101 // Types should be named in PascalCase
+    public class iOSInitializer : IPlatformInitializer
+#pragma warning restore S101 // Types should be named in PascalCase
+    {
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            // Method intentionally left empty.
         }
     }
 }

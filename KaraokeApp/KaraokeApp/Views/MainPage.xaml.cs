@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace KaraokeApp
+namespace KaraokeApp.Views
 {
     public partial class MainPage : ContentPage
     {
