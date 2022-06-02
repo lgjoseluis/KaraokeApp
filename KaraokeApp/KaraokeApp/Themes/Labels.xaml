@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KaraokeApp.Themes.Labels">
+    <!-- Lebel Colors -->
+    <Style Class="PrimaryLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource PrimaryColorDark}, Light={StaticResource PrimaryColorLight}}" />
+    </Style>
+
+    <Style Class="SecondaryLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource SecondaryColorDark}, Light={StaticResource SecondaryColorLight}}" />
+    </Style>
+
+    <Style Class="SuccessLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource SuccessColorDark}, Light={StaticResource SuccessColorLight}}" />
+    </Style>
+
+    <Style Class="WarningLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource WarningColorDark}, Light={StaticResource WarningColorLight}}" />
+    </Style>
+
+    <Style Class="DangerLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource DangerColorDark}, Light={StaticResource DangerColorLight}}" />
+    </Style>
+
+    <Style Class="InfoLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource InfoColorDark}, Light={StaticResource InfoColorLight}}" />
+    </Style>
+
+    <Style Class="LightLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource LightColorDark}, Light={StaticResource LightColorLight}}" />
+    </Style>
+
+    <Style Class="DarkLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource DarkColorDark}, Light={StaticResource DarkColorLight}}" />
+    </Style>
+
+
+    <!-- Label sizes -->
+    <Style Class="LargeLabel"
+                TargetType="Label">
+        <Setter Property="FontSize" 
+                    Value="36"/> <!-- Large -->
+    </Style>
+
+    <Style Class="MediumLabel"
+                TargetType="Label">
+        <Setter Property="FontSize" 
+                    Value="23"/> <!--Medium-->
+    </Style>
+
+    <Style Class="BodyLabel"
+           TargetType="Label">
+        <Setter Property="FontSize" 
+                   Value="16"/> <!--Body-->
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="FontSize" 
+                   Value="14"/> <!--Default-->
+    </Style>
+
+    <Style Class="StandardLabel"
+           TargetType="Label">
+        <Setter Property="FontSize" 
+                   Value="14"/> <!--Default-->
+    </Style>
+
+    <Style Class="SmallLabel"
+           TargetType="Label">
+        <Setter Property="FontSize" 
+                   Value="12"/> <!--Caption-->
+    </Style>
+      
+
+    <!--   
+    Member      iOS Android     UWP
+    Default     17  14          14
+    Micro       12  10          15.667
+    Small       14  14          18.667
+    Medium      17  17          22.667
+    Large       22  22          32
+    Body        17  16          14
+    Header      17  96          46
+    Title       28  24          24
+    Subtitle    22  16          20
+    Caption     12  12          12
+    -->
+</ResourceDictionary>

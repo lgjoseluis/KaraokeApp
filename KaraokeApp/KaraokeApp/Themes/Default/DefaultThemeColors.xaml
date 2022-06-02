@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KaraokeApp.Themes.Default.DefaultThemeColors">
+
+    <Color x:Key="TransparentColor">Transparent</Color>
+    
+    <!-- Colors Light Theme -->
+    <!--<Color x:Key="AppPrimaryColorLight">#6C757D</Color>-->
+    <Color x:Key="AppBackgroundColorLight">#FAFBFB</Color>
+    <Color x:Key="PageBackgroundColorLight">#FFFFFF</Color>
+    <Color x:Key="NavigationBarColorLight">#0D6EFD</Color>
+
+    <Color x:Key="PrimaryColorLight">#0D6EFD</Color>
+    <Color x:Key="SecondaryColorLight">#373A3C</Color>
+    <Color x:Key="SuccessColorLight">#198754</Color>
+    <Color x:Key="WarningColorLight">#FFC107</Color>
+    <Color x:Key="DangerColorLight">#DC3545</Color>
+    <Color x:Key="InfoColorLight">#0DCAF0</Color>
+    <Color x:Key="LightColorLight">#FAFBFB</Color>
+    <Color x:Key="DarkColorLight">#212529</Color>
+    
+    <!-- Colors Dark Theme -->
+    <!--<Color x:Key="AppPrimaryColorDark">#444444</Color>-->
+    <Color x:Key="AppBackgroundColorDark">#ADB5BD</Color>
+    <Color x:Key="PageBackgroundColorDark">#303030</Color>
+    <Color x:Key="NavigationBarColorDark">#375A7F</Color>
+
+    <Color x:Key="PrimaryColorDark">#375A7F</Color>
+    <Color x:Key="SecondaryColorDark">#444444</Color>
+    <Color x:Key="SuccessColorDark">#00BC8C</Color>
+    <Color x:Key="WarningColorDark">#F39C12</Color>
+    <Color x:Key="DangerColorDark">#E74C3C</Color>
+    <Color x:Key="InfoColorDark">#3498DB</Color>
+    <Color x:Key="LightColorDark">#ADB5BD</Color>
+    <Color x:Key="DarkColorDark">#303030</Color>    
+      
+</ResourceDictionary>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KaraokeApp.Themes.Buttons">
+
+    <!-- Base Button -->
+    <Style x:Key="BaseButton"
+           TargetType="Button">
+        <Setter Property="TextTransform" 
+                    Value="None"/>
+        <Setter Property="CornerRadius"
+                    Value="8" />
+    </Style>
+
+    <Style x:Key="LinkBaseButton"
+           TargetType="Button"
+           BasedOn="{StaticResource BaseButton}">
+        <Setter Property="Padding" 
+                    Value="2"/>
+        
+    </Style>
+
+    <!-- Buttons Colors -->
+    <Style Class="PrimaryButton"                
+           TargetType="Button"
+           BasedOn="{StaticResource BaseButton}">
+        <Setter Property="TextColor"                 
+                Value="{AppThemeBinding Dark={StaticResource LightColorDark}, Light={StaticResource LightColorLight}}"/>
+        <Setter Property="BackgroundColor"
+                Value="{AppThemeBinding Dark={StaticResource PrimaryColorDark}, Light={StaticResource PrimaryColorLight}}"/>
+    </Style>    
+
+
+    <!--Style Class="SecondaryLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource SecondaryColorDark}, Light={StaticResource SecondaryColorLight}}" />
+    </Style>
+
+    <Style Class="SuccessLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource SuccessColorDark}, Light={StaticResource SuccessColorLight}}" />
+    </Style>
+
+    <Style Class="WarningLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource WarningColorDark}, Light={StaticResource WarningColorLight}}" />
+    </Style>
+
+    <Style Class="DangerLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource DangerColorDark}, Light={StaticResource DangerColorLight}}" />
+    </Style>
+
+    <Style Class="InfoLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource InfoColorDark}, Light={StaticResource InfoColorLight}}" />
+    </Style>
+
+    <Style Class="LightLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource LightColorDark}, Light={StaticResource LightColorLight}}" />
+    </Style>
+
+    <Style Class="DarkLabel"
+                TargetType="Label">
+        <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Dark={StaticResource DarkColorDark}, Light={StaticResource DarkColorLight}}" />
+    </Style-->
+
+    <!--Link Buttons-->
+    <Style Class="PrimaryLinkButton"                
+           TargetType="Label">
+        <Setter Property="TextColor"                 
+                Value="{AppThemeBinding Dark={StaticResource PrimaryColorDark}, Light={StaticResource PrimaryColorLight}}"/>
+        <Setter Property="BackgroundColor"
+                Value="{StaticResource TransparentColor}"/>
+        <Setter Property="TextDecorations" 
+                    Value="Underline"/>
+    </Style>
+    
+    
+    <!-- Button sizes -->
+    <Style Class="LargeButton"
+           TargetType="Button">
+        <Setter Property="FontSize" 
+                    Value="36"/>
+        <!-- Large -->
+    </Style>
+
+    <Style Class="MediumButton"
+           TargetType="Button">
+        <Setter Property="FontSize" 
+                    Value="23"/>       
+        <!--Medium-->
+    </Style>
+
+    <Style Class="BodyButton"
+           TargetType="Button">
+        <Setter Property="FontSize" 
+                   Value="16"/>
+        <!--Body-->
+    </Style>
+
+    <!--<Style TargetType="Button">
+        <Setter Property="FontSize" 
+                   Value="30"/>
+        --><!--Default--><!--
+    </Style>-->
+
+    <Style Class="StandardButton"
+           TargetType="Button">
+        <Setter Property="FontSize" 
+                   Value="14"/>
+        <!--Default-->
+    </Style>
+
+    <Style Class="SmallButton"
+           TargetType="Button">
+        <Setter Property="FontSize" 
+                   Value="12"/>
+        <!--Caption-->
+    </Style>
+</ResourceDictionary>
