@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
+             xmlns:prism="http://prismlibrary.com" 
+             xmlns:viewmodels="clr-namespace:KaraokeApp.ViewModels" 
+             x:DataType="viewmodels:MainPageViewModel"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="KaraokeApp.Views.MainPage"
              Title="{Binding Title}">
@@ -65,11 +67,13 @@
                       Padding="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="120" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="150" />
                     </Grid.RowDefinitions>
             
-                        <StackLayout Grid.Row="0"
-                                 Padding="20">                
+                        <StackLayout Grid.Row="0"                                      
+                                     Padding="20"
+                                     IsVisible="{Binding IsWiFiDisabled}">                
 
                             <Label Text="Usuario" 
                                     HeightRequest="20"
@@ -82,18 +86,21 @@
                                 StyleClass="SecondaryLabel, BodyLabel"/>
 
                             <Entry  IsPassword="True"
-                                    Placeholder="Escriba su contraseña"/>
-
-                            <Button Text="Iniciar sesión"
-                                    StyleClass="PrimaryButton, MediumButton" 
-                                    Command="{Binding LoginCommand}"/>
+                                    Placeholder="Escriba su contraseña"/>                            
             
                         </StackLayout>
-            
+
                         <StackLayout Grid.Row="1"
+                                     Padding="20,0,20,0">
+                            <Button Text="Iniciar sesión"
+                                            StyleClass="PrimaryButton, MediumButton" 
+                                            Command="{Binding LoginCommand}"/>
+                        </StackLayout>
+            
+                        <StackLayout Grid.Row="2"
                                      Orientation="Horizontal"
                                      VerticalOptions="Start"                         
-                                     Padding="20,0,20,0">
+                                     Padding="20,20,20,0">
 
                             <Label Text="¿Olvidó su contraseña?" 
                                    StyleClass="SecondaryLabel, BodyLabel"/>

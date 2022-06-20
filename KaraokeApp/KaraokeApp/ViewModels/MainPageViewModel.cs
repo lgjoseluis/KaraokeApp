@@ -1,11 +1,17 @@
-﻿using Prism.Commands;
+﻿using Xamarin.Essentials;
+using System.Linq;
+
+using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using System.Collections.Generic;
 
 namespace KaraokeApp.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
+        public bool IsWiFiDisabled { get; private set; }
+
         private readonly IPageDialogService _pageDialog;
 
         public DelegateCommand LoginCommand { get; private set; }
@@ -22,6 +28,15 @@ namespace KaraokeApp.ViewModels
             this.NewUserCommand = new DelegateCommand(NewUser);
             this.LoginCommand = new DelegateCommand(Login);
             this.RecoveryPasswordCommand = new DelegateCommand(RecoveryPassword);
+
+            CheckWiFiStatus();
+        }
+
+        private void CheckWiFiStatus()
+        {
+            IEnumerable<ConnectionProfile> profiles = Connectivity.ConnectionProfiles;
+
+            this.IsWiFiDisabled = !profiles.Contains(ConnectionProfile.WiFi);            
         }
 
         private void Login()
