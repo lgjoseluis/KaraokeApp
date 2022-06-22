@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -20,6 +20,11 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KaraokeApp.Core\KaraokeApp.Core.csproj" />
+    <ProjectReference Include="..\KaraokeApp.Infrastructure\KaraokeApp.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

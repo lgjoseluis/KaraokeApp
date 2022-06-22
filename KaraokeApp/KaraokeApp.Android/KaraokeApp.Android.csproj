@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KaraokeApp\KaraokeApp.csproj">
-      <Project>{483BC76D-8FDF-47E9-BD03-7CCB977F56DB}</Project>
+      <Project>{E5B4EEF5-AF51-4194-BEE6-D82A1985D157}</Project>
       <Name>KaraokeApp</Name>
     </ProjectReference>
   </ItemGroup>
