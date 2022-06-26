@@ -5,6 +5,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Collections.Generic;
+using KaraokeApp.Core.Services.Identity;
 
 namespace KaraokeApp.ViewModels
 {
@@ -12,17 +13,20 @@ namespace KaraokeApp.ViewModels
     {
         public bool IsWiFiDisabled { get; private set; }
 
+        private readonly IIdentityService _identityService;
         private readonly IPageDialogService _pageDialog;
 
         public DelegateCommand LoginCommand { get; private set; }
         public DelegateCommand NewUserCommand { get; private set; }
         public DelegateCommand RecoveryPasswordCommand { get; private set; }
 
-        public MainPageViewModel(INavigationService navigationService
-            , IPageDialogService pageDialog) : base(navigationService)
+        public MainPageViewModel(INavigationService navigationService,
+            IPageDialogService pageDialog,
+            IIdentityService identityService) : base(navigationService)
         {
             Title = "Página principal";
 
+            this._identityService = identityService;
             this._pageDialog = pageDialog;
 
             this.NewUserCommand = new DelegateCommand(NewUser);
@@ -41,7 +45,9 @@ namespace KaraokeApp.ViewModels
 
         private void Login()
         {
-            _pageDialog.DisplayAlertAsync("Info", "Evento click!", "Aceptar");
+            var value = this._identityService.CreateAuthorizationRequest();
+
+            _pageDialog.DisplayAlertAsync("Info", "Value : " + value, "Aceptar");
         }
 
         private void NewUser()

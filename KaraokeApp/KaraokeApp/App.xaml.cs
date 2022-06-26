@@ -1,4 +1,6 @@
-﻿using KaraokeApp.ViewModels;
+﻿using KaraokeApp.Core.Services.Identity;
+using KaraokeApp.Infrastructure.Services.Identity;
+using KaraokeApp.ViewModels;
 using KaraokeApp.Views;
 using Prism;
 using Prism.Ioc;
@@ -40,6 +42,8 @@ namespace KaraokeApp
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+
+            containerRegistry.RegisterSingleton<IIdentityService, IdentityService>();
         }
     }
 }
