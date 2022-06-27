@@ -13,7 +13,7 @@ namespace KaraokeApp.Infrastructure.Services.Identity
     {
         public string CreateAuthorizationRequest()
         {
-            return "test";
+            return AppConfigurationManager.Settings["AuthorizeEndpoint"];
         }
 
         public string CreateLogoutRequest(string token)
