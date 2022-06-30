@@ -15,7 +15,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
-
+            
                 <StackLayout Grid.Row="0"
                              Padding="10">
                     <Frame Padding="10" 
@@ -117,13 +117,25 @@
                                 </Label.FormattedText>
                             </Label>
                         </StackLayout>            
-                </Grid> 
+                </Grid>
 
                 <Label Grid.Row="2"
                         Padding="20,0,10,0"
                         Text="© 2022 - Derechos reservados" 
-                        StyleClass="SecondaryLabel, SmallLabel"/>   
-            
+                        StyleClass="SecondaryLabel, SmallLabel"/>
+
+                <WebView x:Name="webViewMainPage" 
+                         Source="{Binding LoginUrl,Mode=TwoWay}"
+                         Grid.Column="0"                    
+                         Grid.Row="0"
+                         Grid.RowSpan="3" 
+                         IsVisible="{Binding IsLogin}">
+                    <WebView.Behaviors>
+                        <prism:EventToCommandBehavior EventName="Navigated"
+                                                      CommandParameter="{Binding Source={x:Reference webViewMainPage}, Path=Source.Url }"
+                                                      Command="{Binding NavigateCommand}"/>                   
+                    </WebView.Behaviors>
+                </WebView>
         </Grid>
     </ScrollView>
 </ContentPage>

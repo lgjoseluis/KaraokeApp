@@ -8,7 +8,7 @@ using System.Text;
 
 namespace KaraokeApp.Infrastructure.Helper.Configuration
 {
-    internal class AppConfigurationManager
+    public class AppConfigurationManager
     {
         private static AppConfigurationManager _instance;
         private readonly JObject _secrets;
