@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" 
+             xmlns:viewmodels="clr-namespace:KaraokeApp.ViewModels" 
+             x:DataType="viewmodels:LoginPageViewModel"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="KaraokeApp.Views.LoginPage">
+    <ScrollView>
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0"
+                             Padding="10">
+                <Frame Padding="10" 
+                               CornerRadius="4"
+                               Style="{StaticResource BackgroundColorPrimary}">
+
+                    <Label Text="Bienvenido a la aplicación" 
+                                   HorizontalTextAlignment="Center" 
+                                   StyleClass="LightLabel, LargeLabel"/>
+                </Frame>
+
+                <Label Text="Karaoke"                    
+                                Padding="20,10,30,0"
+                                StyleClass="SecondaryLabel, MediumLabel"/>
+
+                <Label Text="Aplicación para administrar las pistas de sus canciones favoritas"                            
+                                Padding="20,0,20,0"
+                                StyleClass="SecondaryLabel, BodyLabel"/>
+
+                <Grid Padding="20,24,20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                                   Text="Para acceder, debe tener una cuenta."
+                                   StyleClass="SecondaryLabel, BodyLabel"/>
+
+                    <Label Grid.Column="1" 
+                                       Text="Registrarse!"
+                                       StyleClass="PrimaryLinkButton, BodyLabel">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Registrase!">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NewUserCommand}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+
+            </StackLayout>
+
+
+            <Grid Grid.Row="1"
+                      Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="150" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0"                                      
+                                     Padding="20"
+                                     IsVisible="{Binding IsWiFiDisabled}">
+
+                    <Label Text="Usuario" 
+                                    HeightRequest="20"
+                                    StyleClass="SecondaryLabel, BodyLabel"/>
+
+                    <Entry Placeholder="Escriba su usuario"/>
+
+                    <Label Text="Contraseña" 
+                                HeightRequest="20"
+                                StyleClass="SecondaryLabel, BodyLabel"/>
+
+                    <Entry  IsPassword="True"
+                                    Placeholder="Escriba su contraseña"/>
+
+                </StackLayout>
+
+                <StackLayout Grid.Row="1"
+                                     Padding="20,0,20,0">
+                    <Button Text="Iniciar sesión"
+                                            StyleClass="PrimaryButton, MediumButton" 
+                                            Command="{Binding LoginCommand}"/>
+                </StackLayout>
+
+                <StackLayout Grid.Row="2"
+                                     Orientation="Horizontal"
+                                     VerticalOptions="Start"                         
+                                     Padding="20,20,20,0">
+
+                    <Label Text="¿Olvidó su contraseña?" 
+                                   StyleClass="SecondaryLabel, BodyLabel"/>
+
+                    <Label StyleClass="PrimaryLinkButton, BodyLabel">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Restablecer contraseña">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding RecoveryPasswordCommand}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </Grid>
+
+            <Label Grid.Row="2"
+                        Padding="20,0,10,0"
+                        Text="© 2022 - Derechos reservados" 
+                        StyleClass="SecondaryLabel, SmallLabel"/>
+
+            <WebView x:Name="webViewLoginPage" 
+                         Source="{Binding LoginUrl,Mode=TwoWay}"
+                         Grid.Column="0"                    
+                         Grid.Row="0"
+                         Grid.RowSpan="3" 
+                         IsVisible="{Binding IsLogin}">
+                <WebView.Behaviors>
+                    <prism:EventToCommandBehavior EventName="Navigated"
+                                                      CommandParameter="{Binding Source={x:Reference webViewLoginPage}, Path=Source.Url }"
+                                                      Command="{Binding NavigatedCommand}"/>
+                </WebView.Behaviors>
+            </WebView>
+        </Grid>
+    </ScrollView>    
+</ContentPage>
