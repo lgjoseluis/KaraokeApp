@@ -9,8 +9,11 @@ using Prism.Services;
 
 using Xamarin.Essentials;
 
+using IdentityModel.Client;
+
 using KaraokeApp.Infrastructure.Helper.Configuration;
 using KaraokeApp.Core.Services.Identity;
+using KaraokeApp.Core.Entities;
 
 namespace KaraokeApp.ViewModels
 {
@@ -91,7 +94,18 @@ namespace KaraokeApp.ViewModels
 
             if (unescapedUrl.Contains(AppConfigurationManager.Settings["XamarinCallback"]))
             {
-                await _pageDialog.DisplayAlertAsync("Info", "Redirect user", "Aceptar");
+                AuthorizeResponse authorizeResponse = new AuthorizeResponse(url);
+
+                if (!string.IsNullOrWhiteSpace(authorizeResponse.Code))
+                {
+                    UserToken userToken = await _identityService.GetTokenAsync(authorizeResponse.Code);
+                    string accessToken = userToken.AccessToken;
+
+                    if (!string.IsNullOrWhiteSpace(accessToken))
+                    {
+                        await _pageDialog.DisplayAlertAsync("Info", accessToken, "Aceptar");
+                    }
+                }
             }
         }
     

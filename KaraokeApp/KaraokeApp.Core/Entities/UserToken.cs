@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace KaraokeApp.Core.Entities
 {
     public class UserToken
     {
-        //[JsonProperty("id_token")]
+        [JsonProperty("id_token")]
         public string IdToken { get; set; }
 
-        //[JsonProperty("access_token")]
+        [JsonProperty("access_token")]
         public string AccessToken { get; set; }
 
-        //[JsonProperty("expires_in")]
+        [JsonProperty("expires_in")]
         public int ExpiresIn { get; set; }
 
-        //[JsonProperty("token_type")]
+        [JsonProperty("token_type")]
         public string TokenType { get; set; }
 
-        //[JsonProperty("refresh_token")]
+        [JsonProperty("refresh_token")]
         public string RefreshToken { get; set; }
     }
 }

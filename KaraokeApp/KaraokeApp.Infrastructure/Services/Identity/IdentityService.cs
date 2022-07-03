@@ -1,16 +1,25 @@
-﻿using KaraokeApp.Core.Services.Identity;
-using KaraokeApp.Core.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
+using System.Net;
+
+using KaraokeApp.Core.Services.Identity;
+using KaraokeApp.Core.Entities;
 using KaraokeApp.Infrastructure.Helper.Configuration;
+using KaraokeApp.Core.Services.RequestProvider;
 
 namespace KaraokeApp.Infrastructure.Services.Identity
 {
     public class IdentityService : IIdentityService
     {
+        private readonly IRequestProvider _requestProvider;
+
+        public IdentityService(IRequestProvider requestProvider)
+        {
+            _requestProvider = requestProvider;
+        }
+
         public string CreateAuthorizationRequest()
         {
             string url = $"{AppConfigurationManager.Settings["AuthorizeEndpoint"]}/auth";
@@ -41,9 +50,16 @@ namespace KaraokeApp.Infrastructure.Services.Identity
             throw new NotImplementedException();
         }
 
-        public Task<UserToken> GetTokenAsync(string code)
+        public async Task<UserToken> GetTokenAsync(string code)
         {
-            throw new NotImplementedException();
+            string data = string.Format("grant_type=authorization_code&code={0}&redirect_uri={1}", code, WebUtility.UrlEncode(AppConfigurationManager.Settings["XamarinCallback"]));
+            string tokenEndpoint = $"{AppConfigurationManager.Settings["AuthorizeEndpoint"]}/token";
+            string clientId = AppConfigurationManager.Settings["ClientId"];
+            string clientSecret = AppConfigurationManager.Settings["ClientSecret"];
+
+            var token = await _requestProvider.PostAsync<UserToken>(tokenEndpoint, data, clientId, clientSecret);
+
+            return token;
         }
     }
 }

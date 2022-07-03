@@ -1,11 +1,15 @@
-﻿using KaraokeApp.Core.Services.Identity;
-using KaraokeApp.Infrastructure.Services.Identity;
-using KaraokeApp.ViewModels;
-using KaraokeApp.Views;
+﻿using Xamarin.Forms;
+
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
-using Xamarin.Forms;
+
+using KaraokeApp.Core.Services.Identity;
+using KaraokeApp.Core.Services.RequestProvider;
+using KaraokeApp.Infrastructure.Services.Identity;
+using KaraokeApp.Infrastructure.Services.RequestProvider;
+using KaraokeApp.ViewModels;
+using KaraokeApp.Views;
 
 namespace KaraokeApp
 {
@@ -44,6 +48,7 @@ namespace KaraokeApp
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
 
             containerRegistry.RegisterSingleton<IIdentityService, IdentityService>();
+            containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
         }
     }
 }
