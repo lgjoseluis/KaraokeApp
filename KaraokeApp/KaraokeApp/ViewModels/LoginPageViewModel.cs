@@ -135,7 +135,7 @@ namespace KaraokeApp.ViewModels
                             { "IdToken", authorizeResponse.IdentityToken }
                         };
 
-                        await NavigationService.NavigateAsync("NavigationPage/MainPage", parameters);
+                        await NavigationService.NavigateAsync("app:///NavigationPage/MainPage", parameters);
                     }
                 }
             }

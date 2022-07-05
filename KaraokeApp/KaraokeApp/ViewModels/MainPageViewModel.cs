@@ -50,7 +50,7 @@ namespace KaraokeApp.ViewModels
                 { "IdToken", this._idToken }
             };
 
-            await this.NavigationService.NavigateAsync("LoginPage", parameters);
+            await this.NavigationService.NavigateAsync("app:///LoginPage", parameters);
         }
     }
 }
