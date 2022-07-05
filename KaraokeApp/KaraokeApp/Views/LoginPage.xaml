@@ -129,6 +129,9 @@
                          Grid.RowSpan="3" 
                          IsVisible="{Binding IsLogin}">
                 <WebView.Behaviors>
+                    <prism:EventToCommandBehavior EventName="Navigating"
+                                                      CommandParameter="{Binding Source={x:Reference webViewLoginPage}, Path=Source.Url }"
+                                                      Command="{Binding NavigatingCommand}"/>
                     <prism:EventToCommandBehavior EventName="Navigated"
                                                       CommandParameter="{Binding Source={x:Reference webViewLoginPage}, Path=Source.Url }"
                                                       Command="{Binding NavigatedCommand}"/>

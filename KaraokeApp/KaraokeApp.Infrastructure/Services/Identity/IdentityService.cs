@@ -47,7 +47,18 @@ namespace KaraokeApp.Infrastructure.Services.Identity
 
         public string CreateLogoutRequest(string token)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(token))
+            {
+                return string.Empty;
+            }
+
+            string logoutEndpoint = $"{AppConfigurationManager.Settings["AuthorizeEndpoint"]}/logout";
+            string logoutCallback = AppConfigurationManager.Settings["LogoutCallback"];
+
+            return string.Format("{0}?id_token_hint={1}&post_logout_redirect_uri={2}",
+                logoutEndpoint,
+                token,
+                logoutCallback);
         }
 
         public async Task<UserToken> GetTokenAsync(string code)

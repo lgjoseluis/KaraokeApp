@@ -12,6 +12,8 @@
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Cerrar sesión"
+                    Command="{Binding LogoutCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

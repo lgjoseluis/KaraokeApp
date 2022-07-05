@@ -18,6 +18,7 @@ namespace KaraokeApp.ViewModels
 {
     public class LoginPageViewModel: ViewModelBase
     {
+        private string _idToken;
         private bool _isWiFiDisabled;
         public bool IsWiFiDisabled
         {
@@ -45,6 +46,7 @@ namespace KaraokeApp.ViewModels
         public DelegateCommand LoginCommand { get; private set; }
         public DelegateCommand NewUserCommand { get; private set; }
         public DelegateCommand RecoveryPasswordCommand { get; private set; }
+        public DelegateCommand<string> NavigatingCommand { get; private set; }
         public DelegateCommand<string> NavigatedCommand { get; private set; }
 
         public LoginPageViewModel(INavigationService navigationService,
@@ -57,12 +59,25 @@ namespace KaraokeApp.ViewModels
             this.NewUserCommand = new DelegateCommand(NewUser);
             this.LoginCommand = new DelegateCommand(Login);
             this.RecoveryPasswordCommand = new DelegateCommand(RecoveryPassword);
+            this.NavigatingCommand = new DelegateCommand<string>( (url) =>  Navigating(url));
             this.NavigatedCommand = new DelegateCommand<string>(async (url) => await NavigatedAsync(url));
 
             this.CheckWiFiStatus();
         }
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
 
-        private void CheckWiFiStatus()
+            bool logout = parameters.GetValue<bool>("Logout");
+            this._idToken = parameters.GetValue<string>("IdToken");
+
+            if (logout)
+            {
+                Logout();
+            }
+        }
+
+            private void CheckWiFiStatus()
         {
             IEnumerable<ConnectionProfile> profiles = Connectivity.ConnectionProfiles;
 
@@ -72,6 +87,12 @@ namespace KaraokeApp.ViewModels
         private void Login()
         {
             this.LoginUrl = this._identityService.CreateAuthorizationRequest();
+            this.IsLogin = true;
+        }
+
+        private void Logout()
+        {
+            this.LoginUrl = this._identityService.CreateLogoutRequest(this._idToken);
             this.IsLogin = true;
         }
 
@@ -85,11 +106,20 @@ namespace KaraokeApp.ViewModels
             _pageDialog.DisplayAlertAsync("Info", "No implementado!", "Aceptar");
         }
 
+        private void Navigating(string url)
+        {
+            // Empty            
+        }
+
         private async Task NavigatedAsync(string url) 
         {
             string unescapedUrl = System.Net.WebUtility.UrlDecode(url);
 
-            if (unescapedUrl.Contains(AppConfigurationManager.Settings["XamarinCallback"]))
+            if (unescapedUrl.Equals(AppConfigurationManager.Settings["LogoutCallback"]))
+            {
+                this.Login();
+            }
+            else if (unescapedUrl.Contains(AppConfigurationManager.Settings["XamarinCallback"]))
             {
                 AuthorizeResponse authorizeResponse = new AuthorizeResponse(url);
 
@@ -100,7 +130,12 @@ namespace KaraokeApp.ViewModels
 
                     if (!string.IsNullOrWhiteSpace(accessToken))
                     {
-                        await NavigationService.NavigateAsync("NavigationPage/Main/MainPage");
+                        INavigationParameters parameters = new NavigationParameters
+                        {
+                            { "IdToken", authorizeResponse.IdentityToken }
+                        };
+
+                        await NavigationService.NavigateAsync("NavigationPage/MainPage", parameters);
                     }
                 }
             }

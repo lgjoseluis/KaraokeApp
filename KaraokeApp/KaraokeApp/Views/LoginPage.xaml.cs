@@ -15,6 +15,8 @@ namespace KaraokeApp.Views
         public LoginPage()
         {
             InitializeComponent();
+
+            NavigationPage.SetHasNavigationBar(this, false); // This removes Navigation Bar            
         }
     }
 }
