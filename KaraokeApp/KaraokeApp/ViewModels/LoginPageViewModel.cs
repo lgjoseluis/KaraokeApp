@@ -12,13 +12,13 @@ using IdentityModel.Client;
 
 using KaraokeApp.Infrastructure.Helper.Configuration;
 using KaraokeApp.Core.Services.Identity;
+using KaraokeApp.Core.Services.Settings;
 using KaraokeApp.Core.Entities;
 
 namespace KaraokeApp.ViewModels
 {
     public class LoginPageViewModel: ViewModelBase
-    {
-        private string _idToken;
+    {        
         private bool _isWiFiDisabled;
         public bool IsWiFiDisabled
         {
@@ -40,6 +40,7 @@ namespace KaraokeApp.ViewModels
             private set => SetProperty(ref _isLogin, value);
         }
 
+        private readonly ISettingsService _settingsService;
         private readonly IIdentityService _identityService;
         private readonly IPageDialogService _pageDialog;
 
@@ -51,9 +52,11 @@ namespace KaraokeApp.ViewModels
 
         public LoginPageViewModel(INavigationService navigationService,
             IPageDialogService pageDialog,
-            IIdentityService identityService) : base(navigationService)
+            IIdentityService identityService,
+            ISettingsService settingsService) : base(navigationService)
         {
             this._identityService = identityService;
+            this._settingsService = settingsService;
             this._pageDialog = pageDialog;
 
             this.NewUserCommand = new DelegateCommand(NewUser);
@@ -69,7 +72,6 @@ namespace KaraokeApp.ViewModels
             base.OnNavigatedTo(parameters);
 
             bool logout = parameters.GetValue<bool>("Logout");
-            this._idToken = parameters.GetValue<string>("IdToken");
 
             if (logout)
             {
@@ -92,7 +94,9 @@ namespace KaraokeApp.ViewModels
 
         private void Logout()
         {
-            this.LoginUrl = this._identityService.CreateLogoutRequest(this._idToken);
+            string idToken = this._settingsService.AuthIdToken;
+
+            this.LoginUrl = this._identityService.CreateLogoutRequest(idToken);
             this.IsLogin = true;
         }
 
@@ -117,6 +121,9 @@ namespace KaraokeApp.ViewModels
 
             if (unescapedUrl.Equals(AppConfigurationManager.Settings["LogoutCallback"]))
             {
+                this._settingsService.AuthAccessToken = string.Empty;
+                this._settingsService.AuthIdToken = string.Empty;
+
                 this.Login();
             }
             else if (unescapedUrl.Contains(AppConfigurationManager.Settings["XamarinCallback"]))
@@ -130,12 +137,10 @@ namespace KaraokeApp.ViewModels
 
                     if (!string.IsNullOrWhiteSpace(accessToken))
                     {
-                        INavigationParameters parameters = new NavigationParameters
-                        {
-                            { "IdToken", authorizeResponse.IdentityToken }
-                        };
+                        this._settingsService.AuthAccessToken = accessToken;
+                        this._settingsService.AuthIdToken=authorizeResponse.IdentityToken;
 
-                        await NavigationService.NavigateAsync("app:///NavigationPage/MainPage", parameters);
+                        await NavigationService.NavigateAsync("app:///NavigationPage/MainPage");
                     }
                 }
             }

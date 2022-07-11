@@ -12,22 +12,24 @@ using IdentityModel.Client;
 using KaraokeApp.Infrastructure.Helper.Configuration;
 using KaraokeApp.Core.Services.Identity;
 using KaraokeApp.Core.Entities;
+using KaraokeApp.Core.Services.Settings;
 
 namespace KaraokeApp.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private string _idToken;
-
+        private readonly ISettingsService _settingsService;
         private readonly IPageDialogService _pageDialog;
 
         public DelegateCommand LogoutCommand { get; private set; }
 
         public MainPageViewModel(INavigationService navigationService,
-            IPageDialogService pageDialog) : base(navigationService)
+            IPageDialogService pageDialog,
+            ISettingsService settingsService) : base(navigationService)
         {
             this.Title = "Página principal";
 
+            this._settingsService = settingsService;
             this._pageDialog = pageDialog;
 
             this.LogoutCommand = new DelegateCommand(async () => await Logout());
@@ -37,17 +39,16 @@ namespace KaraokeApp.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            this._idToken = parameters.GetValue<string>("IdToken");
+            string idToken = this._settingsService.AuthIdToken;
 
-            //_pageDialog.DisplayAlertAsync("Info", this._idToken, "Aceptar");
+            _pageDialog.DisplayAlertAsync("Info", idToken, "Aceptar");
         }
 
         private async Task Logout()
         {
             INavigationParameters parameters = new NavigationParameters
             {
-                { "Logout", true },
-                { "IdToken", this._idToken }
+                { "Logout", true }
             };
 
             await this.NavigationService.NavigateAsync("app:///LoginPage", parameters);

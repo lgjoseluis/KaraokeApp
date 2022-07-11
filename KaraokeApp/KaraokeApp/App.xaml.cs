@@ -6,8 +6,10 @@ using Prism.Unity;
 
 using KaraokeApp.Core.Services.Identity;
 using KaraokeApp.Core.Services.RequestProvider;
+using KaraokeApp.Core.Services.Settings;
 using KaraokeApp.Infrastructure.Services.Identity;
 using KaraokeApp.Infrastructure.Services.RequestProvider;
+using KaraokeApp.Infrastructure.Services.Settings;
 using KaraokeApp.ViewModels;
 using KaraokeApp.Views;
 
@@ -48,6 +50,7 @@ namespace KaraokeApp
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
 
+            containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
             containerRegistry.RegisterSingleton<IIdentityService, IdentityService>();
             containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
         }
